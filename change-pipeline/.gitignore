@@ -1,0 +1,8 @@
+organization/DevCorp/application/node_modules/
+organization/DevCorp/contract/node_modules/
+organization/DevCorp/identity/user/
+organization/OutsourceTeam/application/node_modules/
+organization/OutsourceTeam/contract/node_modules/
+organization/OutsourceTeam/identity/user/
+package-lock.json
+.vscode
