@@ -4,18 +4,12 @@ var url = require('url');
 
 // Load the application classes
 //const UserStory = require('../../../contract/lib/story.js');
-//const Client = require('../application/client.js');
+const Client = require('../application/client.js');
 
 // Create http server.
 var httpServer = http.createServer(function (req, resp) {
 
     console.log(`Request from ${req.socket.remoteAddress}`);
-
-    // Get client request url.
-    //var reqUrlString = req.url;
-
-    // Get client request path name.
-    //var pathName = url.parse(reqUrlString, true, false).pathname;
 
     // Get request method.
     var method = req.method;
@@ -40,7 +34,7 @@ var httpServer = http.createServer(function (req, resp) {
             let number = issue['number'];
             
             // Create a client to communicate with the Hyperledger network
-            //const client = new Client('../gateway/networkConnection.yaml', '../identity/user/isabella/wallet');
+            const client = new Client('../gateway/networkConnection.yaml', '../identity/user/isabella/wallet');
             
             try {
                 // Connect to the network
@@ -52,7 +46,7 @@ var httpServer = http.createServer(function (req, resp) {
                     let title = issue['title'];
 
                     console.log(`Assigning Issue ${number} to [${title}] to sprint [${sprint}]`);
-                    //await client.assign('Issue', number.toString(), title, sprint);
+                    await client.assign('Issue', number.toString(), title, sprint);
                 } else if (action === 'assigned') {
                     //let owner = issue['assignee']['login'];
                     console.log(`Ignoring ${action} action`);
@@ -63,13 +57,16 @@ var httpServer = http.createServer(function (req, resp) {
                     } else {
                         let developer = '';
                         let designer = '';
+                        let sprint = issue['milestone']['title'];
 
                         for (let i in labels) {  
                             let label = labels[i];
                             if (label['name'].includes('Designer')) {
                                 designer = label['name'].substring(0, label['name'].length - 11);
+                                client.design('Issue', number.toString(), sprint, designer);
                             } else if (label['name'].includes('Developer')) {
                                 developer = label['name'].substring(0, label['name'].length - 12);
+                                client.develop('Issue', number.toString(), designer, developer);
                             } else {
                                 console.log(`ERROR: No support for ${label['name']} label`);
                             }
@@ -96,7 +93,7 @@ var httpServer = http.createServer(function (req, resp) {
                 resp.writeHead(500, { 'Access-Control-Allow-Origin': '*' });
                 resp.end(error.stack);
             } finally {
-                //client.disconnect();
+                client.disconnect();
             }
         })
     } else if ("GET" == method) {
