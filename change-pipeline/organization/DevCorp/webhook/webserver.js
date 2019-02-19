@@ -63,10 +63,8 @@ var httpServer = http.createServer(function (req, resp) {
                             let label = labels[i];
                             if (label['name'].includes('Designer')) {
                                 designer = label['name'].substring(0, label['name'].length - 11);
-                                await client.design('Issue', number.toString(), sprint, designer);
                             } else if (label['name'].includes('Developer')) {
                                 developer = label['name'].substring(0, label['name'].length - 12);
-                                await client.develop('Issue', number.toString(), designer, developer);
                             } else {
                                 console.log(`ERROR: No support for ${label['name']} label`);
                             }
@@ -74,9 +72,11 @@ var httpServer = http.createServer(function (req, resp) {
 
                         if (developer != '') {
                             console.log(`Marking Issue ${number} as in developing state with owner [${developer}] from designer [${designer}]`);
+                            await client.develop('Issue', number.toString(), designer, developer);
                         } else if (designer != '') {
                             let sprint = issue['milestone']['title'];
                             console.log(`Marking Issue ${number} as in designing state with owner [${designer}] in sprint [${sprint}]`);
+                            await client.design('Issue', number.toString(), sprint, designer);
                         } else {
                             console.log(`ERROR: no actionble labels found`);
                         }
