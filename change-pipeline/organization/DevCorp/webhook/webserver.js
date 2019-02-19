@@ -72,7 +72,7 @@ var httpServer = http.createServer(function (req, resp) {
 
                         if (developer != '') {
                             console.log(`Marking Issue ${number} as in developing state with owner [${developer}] from designer [${designer}]`);
-                            await client.develop('Issue', number.toString(), designer, developer);
+                            await client.develop('Issue', number.toString(), sprint, designer, developer);
                         } else if (designer != '') {
                             let sprint = issue['milestone']['title'];
                             console.log(`Marking Issue ${number} as in designing state with owner [${designer}] in sprint [${sprint}]`);

@@ -114,10 +114,10 @@ class Client {
      * @param {String} designerName Name of the designer
      * @param {String} developerName Name of the developer
     */
-    async develop(storyType, storyNumber, designerName, developerName) {
+    async develop(storyType, storyNumber, sprintName, designerName, developerName) {
         // Assign a story to a sprint
         console.log('Start DEVELOP transaction.');
-        const assignResponse = await this.contract.submitTransaction('develop', storyType, storyNumber, designerName, developerName);
+        const assignResponse = await this.contract.submitTransaction('develop', storyType, storyNumber, sprintName, designerName, developerName);
 
         // process response
         let story = UserStory.fromBuffer(assignResponse);
