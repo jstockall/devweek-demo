@@ -38,7 +38,7 @@ var httpServer = http.createServer(function (req, resp) {
             
             try {
                 // Connect to the network
-                //await client.connect();
+                await client.connect();
                 
                 console.log(`Action = ${action}`);
                 if (action === 'milestoned') {
