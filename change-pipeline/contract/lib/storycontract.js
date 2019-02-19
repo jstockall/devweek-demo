@@ -96,11 +96,11 @@ class UserStoryContract extends Contract {
 
         // Confirm that the story is in the appropriate state
         if (! story.isAssigned()) {
-            throw new Error(`Unable to begin design, $(storyType)$(storyNumber) is in state $(story.getCurrentState())`);
+            throw new Error(`Unable to begin design, ${storyType}${storyNumber} is in state ${story.getCurrentState()}`);
         }
         // Confirm the story is in the correct sprint
         if (story.getSprintName() !== sprintName) {
-            throw new Error(`Unable to begin design, $(storyType)$(storyNumber) is not in sprint $(sprintName)`);
+            throw new Error(`Unable to begin design, ${storyType}${storyNumber} is not in sprint ${sprintName}`);
         }
 
         // Moves state from ASSIGNED to DESIGNING
@@ -129,17 +129,17 @@ class UserStoryContract extends Contract {
 
         // Confirm that the story is in the appropriate state
         if (! story.isDesigning()) {
-            throw new Error('Unable to begin developement, story ' + storyType + storyNumber + ' is in state ' + story.getCurrentState());
+            throw new Error(`Unable to begin developement, story ${storyType}${storyNumber} is in state ${story.getCurrentState()}`);
         }
 
         // Confirm the story is in the correct sprint
         if (story.getSprintName() !== sprintName) {
-            throw new Error('Unable to begin developement, story ' + storyType + storyNumber + ' is not in sprint ' + sprintName);
+            throw new Error(`Unable to begin developement, story ${storyType}${storyNumber} is not in sprint ${sprintName}`);
         }
 
         // Confirm the story is being handed off by the correct designer
         if (story.getDesignerName() !== designerName) {
-            throw new Error('Unable to begin developement, story ' + storyType + storyNumber + ' is owned by ' + story.getDesignerName());
+            throw new Error(`Unable to begin developement, story ${storyType}${storyNumber} is owned by ${story.getDesignerName()}`);
         }
 
         // Moves state from DESIGNING to DEVELOPING
@@ -170,12 +170,12 @@ class UserStoryContract extends Contract {
 
         // Confirm that the story is in the appropriate state
         if (! story.isDeveloping()) {
-            throw new Error('Unable to begin verification, story ' + storyType + storyNumber + ' is in state ' + story.getCurrentState());
+            throw new Error(`Unable to begin verification, story ${storyType}${storyNumber} is in state ${story.getCurrentState()}`);
         }
 
         // Confirm the story is owned by the developer who made the commit
         if (story.getDeveloperName() !== developerName) {
-            throw new Error('Unable to begin verification, story ' + storyType + storyNumber + ' is owned by ' + story.getDeveloperName());
+            throw new Error(`Unable to begin verification, story ${storyType}${storyNumber} is owned by ${story.getDeveloperName()}`);
         }
 
         // Moves state from DEVELOPING to VERIFYING
@@ -206,17 +206,17 @@ class UserStoryContract extends Contract {
 
         // Confirm that the story is in the appropriate state
         if (! story.isVerifying()) {
-            throw new Error('Unable to begin packaging, story ' + storyType + storyNumber + ' is in state ' + story.getCurrentState());
+            throw new Error(`Unable to begin packaging, story ${storyType}${storyNumber} is in state ${story.getCurrentState()}`);
         }
 
         // Confirm the story has the commit hash that was verified
         if (story.getCommitHash() !== commitHash) {
-            throw new Error('Unable to begin packaging, story ' + storyType + storyNumber + ' matches ' + story.getCommitHash());
+            throw new Error(`Unable to begin packaging, story ${storyType}${storyNumber} matches ${story.getCommitHash()}`);
         }
 
         // Confirm the story is owned by the developer who made the commit
         if (testExecution !== 'Passed') {
-            throw new Error('Unable to begin packaging, story ' + storyType + storyNumber + ' did not pass verification');
+            throw new Error(`Unable to begin packaging, story ${storyType}${storyNumber} did not pass verification`);
         }
 
         // Moves state from VERIFYING to PACKAGING
@@ -248,12 +248,12 @@ class UserStoryContract extends Contract {
 
         // Confirm that the story is in the appropriate state
         if (! story.isPackaging()) {
-            throw new Error('Unable to begin deploying, story ' + storyType + storyNumber + ' is in state ' + story.getCurrentState());
+            throw new Error(`Unable to begin deploying, story ${storyType}${storyNumber} is in state ${story.getCurrentState()}`);
         }
 
         // Confirm the story has the commit hash that was packaged
         if (story.getCommitHash() !== commitHash) {
-            throw new Error('Unable to begin deploying, story ' + storyType + storyNumber + ' matches ' + story.getCommitHash());
+            throw new Error(`Unable to begin deploying, story ${storyType}${storyNumber} matches ${story.getCommitHash()}`);
         }
 
         // Moves state from PACKAGING to DEPLOYING
@@ -287,15 +287,15 @@ class UserStoryContract extends Contract {
 
         // Confirm that story is in the design phase
         if (! story.isDeploying()) {
-            throw new Error('Unable to complete, story ' + storyType + storyNumber + ' is in state ' + story.getCurrentState());
+            throw new Error(`Unable to complete, story ${storyType}${storyNumber} is in state ${story.getCurrentState()}`);
         }
 
         // Confirm the story has image name and version that was deployed
         if (story.getImageName() !== imageName) {
-            throw new Error('Unable to run, story ' + storyType + storyNumber + ' hase image name ' + story.getImageName());
+            throw new Error(`Unable to run, story ${storyType}${storyNumber} hase image name ${story.getImageName()}`);
         }
         if (story.getVersion() !== version) {
-            throw new Error('Unable to run, story ' + storyType + storyNumber + ' hase image version ' + story.getVersion());
+            throw new Error(`Unable to run, story ${storyType}${storyNumber} hase image version ${story.getVersion()}`);
         }
 
         // Moves state from DEPLOYING to RUNNING
