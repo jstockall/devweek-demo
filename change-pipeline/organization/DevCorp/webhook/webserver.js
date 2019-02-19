@@ -63,10 +63,10 @@ var httpServer = http.createServer(function (req, resp) {
                             let label = labels[i];
                             if (label['name'].includes('Designer')) {
                                 designer = label['name'].substring(0, label['name'].length - 11);
-                                client.design('Issue', number.toString(), sprint, designer);
+                                await client.design('Issue', number.toString(), sprint, designer);
                             } else if (label['name'].includes('Developer')) {
                                 developer = label['name'].substring(0, label['name'].length - 12);
-                                client.develop('Issue', number.toString(), designer, developer);
+                                await client.develop('Issue', number.toString(), designer, developer);
                             } else {
                                 console.log(`ERROR: No support for ${label['name']} label`);
                             }
