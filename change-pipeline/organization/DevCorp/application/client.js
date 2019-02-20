@@ -156,7 +156,7 @@ class Client {
    async package(storyType, storyNumber, commitHash, testExecution) {
     // Assign a story to a sprint
     console.log('Start PACKAGE transaction.');
-    const assignResponse = await this.contract.submitTransaction('verify', storyType, storyNumber, commitHash, testExecution);
+    const assignResponse = await this.contract.submitTransaction('package', storyType, storyNumber, commitHash, testExecution);
 
     // process response
     let story = UserStory.fromBuffer(assignResponse);
