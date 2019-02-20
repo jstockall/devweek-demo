@@ -44,7 +44,7 @@ async function main() {
         let commitHash = process.argv[4];
         let testExecution = process.argv[4];
 
-        console.log(`Marking Issue ${number} as in packaing state with commit hash [${commitHash}] and test execution [${}]`);
+        console.log(`Marking Issue ${number} as in packaing state with commit hash [${commitHash}] and test execution [${testExecution}]`);
         await client.package('Issue', number.toString(), commitHash, testExecution);
 
     } catch (error) {
