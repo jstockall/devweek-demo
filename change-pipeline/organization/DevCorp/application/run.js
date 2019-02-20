@@ -29,12 +29,13 @@ const Client = require('./client.js');
 async function main() {
 
     if (process.argv.length != 5) {
-        console.log("Expected node deploy.js commitHash version /path/to/git/repo");
+        console.log("Expected node run.js commitHash version /path/to/git/repo");
         process.exit(-2);
     }
     let commitHash = process.argv[2];
     let version = process.argv[3].toString();
     let imageName = "jstockall/microservices-docker-django";
+    let server = "demo-k8s";
     let number = 0;
 
     const { exec } = require('child_process');
@@ -65,8 +66,8 @@ async function main() {
         // Connect to the network
         await client.connect();
 
-        console.log(`Marking Issue ${number} as in deploying state with name [${imageName}] version [${version}]`);
-        await client.deploy('Issue', number.toString(), commitHash, imageName, version);
+        console.log(`Marking Issue ${number} as in running on version [${server}]`);
+        await client.deploy('Issue', number.toString(), imageName, version, server);
 
     } catch (error) {
 
