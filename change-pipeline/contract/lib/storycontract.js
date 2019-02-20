@@ -210,8 +210,8 @@ class UserStoryContract extends Contract {
         }
 
         // Confirm the story has the commit hash that was verified
-        if (story.getCommitHash() !== commitHash) {
-            throw new Error(`Unable to begin packaging, story ${storyType}${storyNumber} matches ${story.getCommitHash()}`);
+        if (story.getCommitHash() != commitHash) {
+            throw new Error(`Unable to begin packaging, story ${storyType}${storyNumber} commit hash [${story.getCommitHash()}] does not match [${commitHash}]`);
         }
 
         // Confirm the story is owned by the developer who made the commit
@@ -252,8 +252,8 @@ class UserStoryContract extends Contract {
         }
 
         // Confirm the story has the commit hash that was packaged
-        if (story.getCommitHash() !== commitHash) {
-            throw new Error(`Unable to begin deploying, story ${storyType}${storyNumber} matches ${story.getCommitHash()}`);
+        if (story.getCommitHash() != commitHash) {
+            throw new Error(`Unable to begin deploying, story ${storyType}${storyNumber} commit hash [${story.getCommitHash()}] does not match [${commitHash}]`);
         }
 
         // Moves state from PACKAGING to DEPLOYING
