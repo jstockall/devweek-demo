@@ -124,5 +124,44 @@ class Client {
         console.log(`${story.storyType}${story.storyNumber} in develop state by [${story.developerName}]`);
         console.log('End DEVELOP transaction.');
     }
+
+    /**
+     * Begin testing a story
+     *
+     * @param {String} storyType user story type
+     * @param {Integer} storyNumber number for this story
+     * @param {String} developerName Name of the developer
+     * @param {String} commitHash Git commit hash
+    */
+    async verify(storyType, storyNumber, sprintName, designerName, developerName) {
+        // Assign a story to a sprint
+        console.log('Start VERIFY transaction.');
+        const assignResponse = await this.contract.submitTransaction('verify', storyType, storyNumber, developerName, commitHash);
+
+        // process response
+        let story = UserStory.fromBuffer(assignResponse);
+        console.log(`${story.storyType}${story.storyNumber} in develop state by [${story.developerName}]`);
+        console.log('End VERIFY transaction.');
+    }
+
+
+    /**
+     * Begin packaging a story
+     *
+     * @param {String} storyType user story type
+     * @param {Integer} storyNumber number for this story
+     * @param {String} commitHash Git commit hash
+     * @param {String} testExecution Name of the developer     
+    */
+   async package(storyType, storyNumber, sprintName, designerName, developerName) {
+    // Assign a story to a sprint
+    console.log('Start PACKAGE transaction.');
+    const assignResponse = await this.contract.submitTransaction('verify', storyType, storyNumber, commitHash, testExecution);
+
+    // process response
+    let story = UserStory.fromBuffer(assignResponse);
+    console.log(`${story.storyType}${story.storyNumber} in develop state by [${story.developerName}]`);
+    console.log('End PACKAGE transaction.');
+}    
 };
 module.exports = Client;
