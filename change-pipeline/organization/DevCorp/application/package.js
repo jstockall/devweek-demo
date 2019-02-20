@@ -28,6 +28,34 @@ const Client = require('./client.js');
 // Main program function
 async function main() {
 
+    if (process.argv.length != 5) {
+        console.log("Expected node package.js commitHash testExecution /path/to/git/repo");
+        process.exit(-2);
+    }
+    let commitHash = process.argv[2];
+    let testExecution = process.argv[3];
+    let number = 0;
+
+    const { exec } = require('child_process');
+    exec(`git show  -s --format=%B ${commitHash}`, { cwd: process.argv[4] }, (err, stdout, stderr) => {
+        if (err) {
+            console.log("Unable to execute git show");
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+            process.exit(2);
+        }
+
+        let matches = stdout.match(/Fix #(\d)/i);
+        if (matches != null) {
+            number = matches[1];
+        } else {
+            console.log("Unable to obtain issue number from commit message");
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+            process.exit(3);
+        }
+    });
+
     // Create a client to communicate with the Hyperledger network
     const client = new Client('../gateway/networkConnection.yaml', '../identity/user/isabella/wallet');
 
@@ -35,14 +63,6 @@ async function main() {
     try {
         // Connect to the network
         await client.connect();
-
-        if (process.argv.length != 5) {
-            console.log("Expected node package.js storyNumber commitHash testExecution");
-            process.exit(-2);
-        }
-        let number = process.argv[2];
-        let commitHash = process.argv[3];
-        let testExecution = process.argv[4];
 
         console.log(`Marking Issue ${number} as in packaing state with commit hash [${commitHash}] and test execution [${testExecution}]`);
         await client.package('Issue', number.toString(), commitHash, testExecution);

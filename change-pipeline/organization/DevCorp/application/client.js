@@ -140,7 +140,7 @@ class Client {
 
         // process response
         let story = UserStory.fromBuffer(assignResponse);
-        console.log(`${story.storyType}${story.storyNumber} in develop state by [${story.developerName}]`);
+        console.log(`${story.storyType}${story.storyNumber} is now in verify with commit hash [${story.commitHash}]`);
         console.log('End VERIFY transaction.');
     }
 
@@ -160,7 +160,7 @@ class Client {
 
     // process response
     let story = UserStory.fromBuffer(assignResponse);
-    console.log(`${story.storyType}${story.storyNumber} in develop state by [${story.developerName}]`);
+    console.log(`${story.storyType}${story.storyNumber} in package with test execution [${story.testExecution}]`);
     console.log('End PACKAGE transaction.');
 }    
 };
