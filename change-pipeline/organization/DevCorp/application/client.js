@@ -153,15 +153,54 @@ class Client {
      * @param {String} commitHash Git commit hash
      * @param {String} testExecution Name of the developer     
     */
-   async package(storyType, storyNumber, commitHash, testExecution) {
-    // Assign a story to a sprint
-    console.log('Start PACKAGE transaction.');
-    const assignResponse = await this.contract.submitTransaction('package', storyType, storyNumber, commitHash, testExecution);
+    async package(storyType, storyNumber, commitHash, testExecution) {
+        // Assign a story to a sprint
+        console.log('Start PACKAGE transaction.');
+        const assignResponse = await this.contract.submitTransaction('package', storyType, storyNumber, commitHash, testExecution);
 
-    // process response
-    let story = UserStory.fromBuffer(assignResponse);
-    console.log(`${story.storyType}${story.storyNumber} in package with test execution [${story.testExecution}]`);
-    console.log('End PACKAGE transaction.');
-}    
+        // process response
+        let story = UserStory.fromBuffer(assignResponse);
+        console.log(`${story.storyType}${story.storyNumber} in package with test execution [${story.testExecution}]`);
+        console.log('End PACKAGE transaction.');
+    }
+
+    /**
+     * Begin testing a story
+     *
+     * @param {String} storyType user story type
+     * @param {Integer} storyNumber number for this story
+     * @param {String} developerName Name of the developer
+     * @param {String} commitHash Git commit hash
+    */
+    async deploy(storyType, storyNumber, commitHash, imageName, version) {
+        // Assign a story to a sprint
+        console.log('Start DEPLOY transaction.');
+        const assignResponse = await this.contract.submitTransaction('deploy', storyType, storyNumber, commitHash, imageName, version);
+
+        // process response
+        let story = UserStory.fromBuffer(assignResponse);
+        console.log(`${story.storyType}${story.storyNumber} is now being deployed with version [${story.version}]`);
+        console.log('End DEPLOY transaction.');
+    }
+
+
+    /**
+     * Begin packaging a story
+     *
+     * @param {String} storyType user story type
+     * @param {Integer} storyNumber number for this story
+     * @param {String} commitHash Git commit hash
+     * @param {String} testExecution Name of the developer     
+    */
+    async run(storyType, storyNumber, imageName, version, server) {
+        // Assign a story to a sprint
+        console.log('Start RUN transaction.');
+        const assignResponse = await this.contract.submitTransaction('run', storyType, storyNumber, imageName, version, server);
+
+        // process response
+        let story = UserStory.fromBuffer(assignResponse);
+        console.log(`${story.storyType}${story.storyNumber} is not running on [${story.server}]`);
+        console.log('End RUN transaction.');
+    }
 };
 module.exports = Client;
