@@ -39,6 +39,8 @@ async function main() {
     exec('git show -s --format=%B ' + commitHash, (err, stdout, stderr) => {
         if (err) {
             console.log("Unable to execute git show");
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
             process.exit(2);
         }
 
@@ -47,6 +49,8 @@ async function main() {
             number = matches[1];
         } else {
             console.log("Unable to obtain issue number from commit message");
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
             process.exit(3);
         }
     });
