@@ -67,7 +67,7 @@ async function main() {
         await client.connect();
 
         console.log(`Marking Issue ${number} as in running on version [${server}]`);
-        await client.deploy('Issue', number.toString(), imageName, version, server);
+        await client.run('Issue', number.toString(), imageName, version, server);
 
     } catch (error) {
 
