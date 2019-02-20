@@ -41,7 +41,7 @@ async function main() {
             process.exit(-2);
         }
         let number = process.argv[2];
-        let commitHash = process.argv[4];
+        let commitHash = process.argv[3];
         let testExecution = process.argv[4];
 
         console.log(`Marking Issue ${number} as in packaing state with commit hash [${commitHash}] and test execution [${testExecution}]`);
