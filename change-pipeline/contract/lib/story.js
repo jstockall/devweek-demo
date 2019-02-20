@@ -72,6 +72,22 @@ class UserStory extends State {
         return this.version;
     }
 
+    setCommitHash(newCommitHash) {
+        this.commitHash = newCommitHash;
+    }
+
+    getCommitHash() {
+        return this.commitHash;
+    }
+
+    setTestExecution(newTestExecution) {
+        this.testExecution = newTestExecution;
+    }
+
+    getTestExecution() {
+        return this.testExecution;
+    }
+
     setImageName(newImageName) {
         this.imageName = newImageName;
     }
