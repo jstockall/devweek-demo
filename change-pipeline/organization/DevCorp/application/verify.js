@@ -19,7 +19,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const UserStory = require('../../../contract/lib/story.js');
-const Client = require('client.js');
+const Client = require('./client.js');
 
 // A wallet stores a collection of identities for use
 //const wallet = new FileSystemWallet('../user/isabella/wallet');
