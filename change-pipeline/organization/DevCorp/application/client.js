@@ -133,7 +133,7 @@ class Client {
      * @param {String} developerName Name of the developer
      * @param {String} commitHash Git commit hash
     */
-    async verify(storyType, storyNumber, sprintName, designerName, developerName) {
+    async verify(storyType, storyNumber, developerName, commitHash) {
         // Assign a story to a sprint
         console.log('Start VERIFY transaction.');
         const assignResponse = await this.contract.submitTransaction('verify', storyType, storyNumber, developerName, commitHash);
@@ -153,7 +153,7 @@ class Client {
      * @param {String} commitHash Git commit hash
      * @param {String} testExecution Name of the developer     
     */
-   async package(storyType, storyNumber, sprintName, designerName, developerName) {
+   async package(storyType, storyNumber, commitHash, testExecution) {
     // Assign a story to a sprint
     console.log('Start PACKAGE transaction.');
     const assignResponse = await this.contract.submitTransaction('verify', storyType, storyNumber, commitHash, testExecution);
