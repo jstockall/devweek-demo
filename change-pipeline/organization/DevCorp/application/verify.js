@@ -28,15 +28,16 @@ const Client = require('./client.js');
 // Main program function
 async function main() {
 
-    if (process.argv.length != 4) {
-        console.log("Expected node verify.js developerName commitHash");
+    if (process.argv.length != 5) {
+        console.log("Expected node verify.js developerName commitHash /path/to/git/repo");
         process.exit(-2);
     }
     let developer = process.argv[2];
     let commitHash = process.argv[3];
+    let number = 0;
 
     const { exec } = require('child_process');
-    exec('git show -s --format=%B ' + commitHash, (err, stdout, stderr) => {
+    exec(`git show  -s --format=%B ${commitHash}`, { cwd: process.argv[4] }, (err, stdout, stderr) => {
         if (err) {
             console.log("Unable to execute git show");
             console.log(`stdout: ${stdout}`);
