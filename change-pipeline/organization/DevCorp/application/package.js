@@ -36,12 +36,13 @@ async function main() {
         // Connect to the network
         await client.connect();
 
-        if (process.argv.length != 4) {
-            console.log("Expected node verify.js commitHash testExecution");
+        if (process.argv.length != 5) {
+            console.log("Expected node verify.js storyNumber developerName commitHash");
             process.exit(-2);
         }
-        let developer = process.argv[2];
-        let commitHash = process.argv[3];
+        let number = process.argv[2];
+        let developer = process.argv[3];
+        let commitHash = process.argv[4];
 
         console.log(`Marking Issue ${number} as in packaing state with commit hash [${commitHash}] and test execution [${testExecution}]`);
         await client.package('Issue', number.toString(), commitHash, testExecution);
